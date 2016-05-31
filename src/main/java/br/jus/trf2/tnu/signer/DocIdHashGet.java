@@ -24,9 +24,6 @@ public class DocIdHashGet implements IRestAction {
 		String sha256 = Base64.encodeBase64String(calcSha256(pdf));
 		resp.put("sha1", sha1);
 		resp.put("sha256", sha256);
-
-		resp.put("policy", "PKCS7");
-		resp.put("doc", Base64.encodeBase64String(pdf));
 	}
 
 	public static byte[] calcSha1(byte[] content)
