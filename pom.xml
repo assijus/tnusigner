@@ -27,8 +27,6 @@
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
-			<scope>system</scope>
-			<systemPath>c:/Users/tah/Downloads/Microsoft JDBC Driver 4.0 for SQL Server/sqljdbc_4.0/enu/sqljdbc4.jar</systemPath>
 		</dependency>
 
 		<dependency>

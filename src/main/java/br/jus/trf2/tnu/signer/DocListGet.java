@@ -54,9 +54,9 @@ public class DocListGet implements IRestAction {
 				Id id = new Id(cpf, rset.getInt("processoid"),
 						rset.getLong("documentoid"));
 				doc.put("id", id.toString());
-				doc.put("code", rset.getString("documentoid"));
-				doc.put("descr", rset.getString("documentoid"));
-				doc.put("kind", rset.getString("documentoid"));
+				doc.put("code", rset.getString("numeroProcesso"));
+				doc.put("descr", rset.getString("descricao"));
+				doc.put("kind", rset.getString("tipoDocumentoDescricao"));
 				doc.put("origin", "TNU");
 				doc.put("urlHash", "tnu/doc/" + doc.getString("id")
 						+ "/hash");
