@@ -37,7 +37,7 @@ public class Utils {
 		} catch (NameNotFoundException nnfe) {
 			Connection connection = null;
 
-			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Class.forName("oracle.jdbc.OracleDriver");
 
 			String dbURL = RestUtils.getProperty(
 					"tnusigner.datasource.url", null);
