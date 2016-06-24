@@ -4,20 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.crivano.restservlet.IRestAction;
 
-@SuppressWarnings("serial")
 public class DocListGet implements IRestAction {
 
 	@Override
-	public void run(HttpServletRequest request, HttpServletResponse response,
-			JSONObject req, JSONObject resp) throws Exception {
+	public void run(JSONObject req, JSONObject resp) throws Exception {
 		// Parse request
 		String cpf = req.getString("cpf");
 
@@ -58,12 +53,9 @@ public class DocListGet implements IRestAction {
 				doc.put("descr", rset.getString("descricao"));
 				doc.put("kind", rset.getString("tipoDocumentoDescricao"));
 				doc.put("origin", "TNU");
-				doc.put("urlHash", "tnu/doc/" + doc.getString("id")
-						+ "/hash");
-				doc.put("urlSave", "tnu/doc/" + doc.getString("id")
-						+ "/sign");
-				doc.put("urlView", "tnu/doc/" + doc.getString("id")
-						+ "/pdf");
+				doc.put("urlHash", "tnu/doc/" + doc.getString("id") + "/hash");
+				doc.put("urlSave", "tnu/doc/" + doc.getString("id") + "/sign");
+				doc.put("urlView", "tnu/doc/" + doc.getString("id") + "/pdf");
 				list.put(doc);
 
 				// Acrescenta essa informação na tabela para permitir a
