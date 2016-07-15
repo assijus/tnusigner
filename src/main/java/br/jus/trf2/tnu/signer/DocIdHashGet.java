@@ -42,6 +42,6 @@ public class DocIdHashGet implements IRestAction {
 
 	@Override
 	public String getContext() {
-		return "obter o hash de documento do TNU";
+		return "obter o hash";
 	}
 }

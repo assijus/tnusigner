@@ -76,7 +76,7 @@ public class DocListGet implements IRestAction {
 
 	@Override
 	public String getContext() {
-		return "listar documentos do TNU";
+		return "listar documentos";
 	}
 
 }

@@ -56,6 +56,6 @@ public class DocIdPdfGet implements IRestAction {
 
 	@Override
 	public String getContext() {
-		return "visualizar documento do TNU";
+		return "visualizar documento";
 	}
 }
