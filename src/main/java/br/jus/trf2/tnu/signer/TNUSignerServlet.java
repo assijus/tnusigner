@@ -3,6 +3,7 @@ package br.jus.trf2.tnu.signer;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
+import com.crivano.restservlet.RestUtils;
 import com.crivano.swaggerservlet.Swagger;
 import com.crivano.swaggerservlet.SwaggerServlet;
 
@@ -20,5 +21,7 @@ public class TNUSignerServlet extends SwaggerServlet {
 				"/swagger.yaml"));
 
 		super.setSwagger(sw);
+		super.setAuthorization(RestUtils
+				.getProperty("tnusigner.password", null));
 	}
 }

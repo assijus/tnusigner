@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 
 import com.crivano.restservlet.IRestAction;
+import com.crivano.restservlet.RestUtils;
 
 public class DocIdPdfGet implements IRestAction {
 	@Override
@@ -18,7 +18,7 @@ public class DocIdPdfGet implements IRestAction {
 		byte[] pdf = retrievePdf(id);
 
 		// Produce response
-		resp.put("doc", Base64.encodeBase64String(pdf));
+		resp.put("doc", RestUtils.base64Encode(pdf));
 	}
 
 	protected static byte[] retrievePdf(Id id) throws Exception, SQLException {
@@ -40,7 +40,7 @@ public class DocIdPdfGet implements IRestAction {
 
 			while (rset.next()) {
 				String conteudo = rset.getString("conteudo");
-				byte[] pdf = new Base64().decodeBase64(conteudo);
+				byte[] pdf = RestUtils.base64Decode(conteudo);
 				return pdf;
 			}
 		} finally {

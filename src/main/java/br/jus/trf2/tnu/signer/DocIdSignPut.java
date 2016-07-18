@@ -4,7 +4,6 @@ import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONObject;
 
 import com.crivano.restservlet.IRestAction;
@@ -19,7 +18,7 @@ public class DocIdSignPut implements IRestAction {
 		String cpf = req.getString("cpf");
 
 		byte[] pdf = DocIdPdfGet.retrievePdf(id);
-		String content = new String(new Base64().encode(pdf));
+		String content = new String(RestUtils.base64Encode(pdf));
 
 		String msg = null;
 
@@ -27,9 +26,8 @@ public class DocIdSignPut implements IRestAction {
 		JSONObject blucreq = new JSONObject();
 		blucreq.put("envelope", detached);
 		blucreq.put("content", content);
-		JSONObject blucresp = RestUtils.getJsonObjectFromJsonPost(
-				new URL(Utils.getUrlBluCServer() + "/attach"), blucreq,
-				"bluc-attach");
+		JSONObject blucresp = RestUtils.restPost("bluc-attach", null,
+				Utils.getUrlBluCServer() + "/attach", blucreq);
 		String attached = blucresp.getString("envelope");
 
 		// Chama a procedure que faz a gravação da assinatura
