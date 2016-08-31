@@ -14,7 +14,7 @@ public class DocIdHashGet implements IRestAction {
 		Id id = new Id(req.getString("id"));
 
 		byte[] pdf = DocIdPdfGet.retrievePdf(id);
-
+		
 		// Produce response
 		String sha1 = RestUtils.base64Encode(calcSha1(pdf));
 		String sha256 = RestUtils.base64Encode(calcSha256(pdf));

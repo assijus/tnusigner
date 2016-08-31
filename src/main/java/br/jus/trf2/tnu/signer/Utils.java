@@ -15,8 +15,6 @@ import javax.sql.DataSource;
 import com.crivano.restservlet.RestUtils;
 
 public class Utils {
-	private static final Logger log = Logger.getLogger(Utils.class.getName());
-
 	private static final Map<String, byte[]> cache = new HashMap<String, byte[]>();
 
 	public static String getUrlBluCServer() {
@@ -39,8 +37,8 @@ public class Utils {
 
 			Class.forName("oracle.jdbc.OracleDriver");
 
-			String dbURL = RestUtils.getProperty(
-					"tnusigner.datasource.url", null);
+			String dbURL = RestUtils.getProperty("tnusigner.datasource.url",
+					null);
 			String username = RestUtils.getProperty(
 					"tnusigner.datasource.username", null);
 			;
