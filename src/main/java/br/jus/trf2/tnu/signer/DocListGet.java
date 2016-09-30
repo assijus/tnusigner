@@ -3,21 +3,25 @@ package br.jus.trf2.tnu.signer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocListGetRequest;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocListGetResponse;
+import br.jus.trf2.tnu.signer.ITNUSigner.Document;
+import br.jus.trf2.tnu.signer.ITNUSigner.IDocListGet;
 
-import com.crivano.restservlet.IRestAction;
-
-public class DocListGet implements IRestAction {
+public class DocListGet implements IDocListGet {
 
 	@Override
-	public void run(JSONObject req, JSONObject resp) throws Exception {
+	public void run(DocListGetRequest req, DocListGetResponse resp)
+			throws Exception {
+
 		// Parse request
-		String cpf = req.getString("cpf");
+		String cpf = req.cpf;
 
 		// Setup json array
-		JSONArray list = new JSONArray();
+		List<Document> list = new ArrayList<>();
 
 		// Get documents from Oracle
 		//
@@ -44,19 +48,19 @@ public class DocListGet implements IRestAction {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				JSONObject doc = new JSONObject();
+				Document doc = new Document();
 
 				Id id = new Id(cpf, rset.getInt("processoid"),
 						rset.getLong("documentoid"));
-				doc.put("id", id.toString());
-				doc.put("code", rset.getString("numeroProcesso"));
-				doc.put("descr", rset.getString("descricao"));
-				doc.put("kind", rset.getString("tipoDocumentoDescricao"));
-				doc.put("origin", "TNU");
-				doc.put("urlHash", "tnu/doc/" + doc.getString("id") + "/hash");
-				doc.put("urlSave", "tnu/doc/" + doc.getString("id") + "/sign");
-				doc.put("urlView", "tnu/doc/" + doc.getString("id") + "/pdf");
-				list.put(doc);
+				doc.id = id.toString();
+				doc.code = rset.getString("numeroProcesso");
+				doc.descr = rset.getString("descricao");
+				doc.kind = rset.getString("tipoDocumentoDescricao");
+				doc.origin = "TNU";
+				doc.urlHash = "tnu/doc/" + doc.id + "/hash";
+				doc.urlSave = "tnu/doc/" + doc.id + "/sign";
+				doc.urlView = "tnu/doc/" + doc.id + "/pdf";
+				list.add(doc);
 
 				// Acrescenta essa informação na tabela para permitir a
 				// posterior visualização.
@@ -71,7 +75,7 @@ public class DocListGet implements IRestAction {
 				conn.close();
 		}
 
-		resp.put("list", list);
+		resp.list = list;
 	}
 
 	@Override

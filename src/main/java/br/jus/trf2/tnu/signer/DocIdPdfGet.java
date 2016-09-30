@@ -5,26 +5,24 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.json.JSONObject;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetRequest;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetResponse;
+import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdPdfGet;
 
-import com.crivano.restservlet.IRestAction;
 import com.crivano.restservlet.RestUtils;
 
-public class DocIdPdfGet implements IRestAction {
+public class DocIdPdfGet implements IDocIdPdfGet {
+
 	@Override
-	public void run(JSONObject req, JSONObject resp) throws Exception {
-		Id id = new Id(req.getString("id"));
+	public void run(DocIdPdfGetRequest req, DocIdPdfGetResponse resp)
+			throws Exception {
+		Id id = new Id(req.id);
 
 		byte[] pdf = retrievePdf(id);
-
-		// Produce response
-		resp.put("doc", RestUtils.base64Encode(pdf));
+		resp.doc = pdf;
 	}
 
 	protected static byte[] retrievePdf(Id id) throws Exception, SQLException {
-		byte[] pdfCompressed = null;
-		String status;
-		String error;
 		// Chama a procedure que recupera os dados do PDF para viabilizar a
 		// assinatura
 		//
@@ -58,4 +56,5 @@ public class DocIdPdfGet implements IRestAction {
 	public String getContext() {
 		return "visualizar documento";
 	}
+
 }

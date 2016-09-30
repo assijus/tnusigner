@@ -1,24 +1,28 @@
 package br.jus.trf2.tnu.signer;
 
-import java.net.URL;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
 import org.json.JSONObject;
 
-import com.crivano.restservlet.IRestAction;
-import com.crivano.restservlet.RestUtils;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutRequest;
+import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutResponse;
+import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdSignPut;
 
-public class DocIdSignPut implements IRestAction {
+import com.crivano.restservlet.RestUtils;
+import com.crivano.swaggerservlet.SwaggerUtils;
+
+public class DocIdSignPut implements IDocIdSignPut {
 
 	@Override
-	public void run(JSONObject req, JSONObject resp) throws Exception {
-		Id id = new Id(req.getString("id"));
-		String detached = req.getString("envelope");
-		String cpf = req.getString("cpf");
+	public void run(DocIdSignPutRequest req, DocIdSignPutResponse resp)
+			throws Exception {
+		Id id = new Id(req.id);
+		String detached = SwaggerUtils.base64Encode(req.envelope);
+		String cpf = req.cpf;
 
 		byte[] pdf = DocIdPdfGet.retrievePdf(id);
-		String content = new String(RestUtils.base64Encode(pdf));
+		String content = new String(SwaggerUtils.base64Encode(pdf));
 
 		String msg = null;
 
@@ -50,11 +54,12 @@ public class DocIdSignPut implements IRestAction {
 			if (conn != null)
 				conn.close();
 		}
-		resp.put("status", "OK");
+		resp.status = "OK";
 	}
 
 	@Override
 	public String getContext() {
 		return "salvar assinatura";
 	}
+
 }
