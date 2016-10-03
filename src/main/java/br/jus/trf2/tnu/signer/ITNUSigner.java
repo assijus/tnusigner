@@ -30,6 +30,7 @@ interface ITNUSigner {
 
 	class DocListGetRequest implements ISwaggerRequest {
 		String cpf;
+		String urlapi;
 	}
 
 	class DocListGetResponse implements ISwaggerResponse {
@@ -43,6 +44,7 @@ interface ITNUSigner {
 
 	class DocIdPdfGetRequest implements ISwaggerRequest {
 		String id;
+		String cpf;
 	}
 
 	class DocIdPdfGetResponse implements ISwaggerResponse {
@@ -56,6 +58,7 @@ interface ITNUSigner {
 
 	class DocIdHashGetRequest implements ISwaggerRequest {
 		String id;
+		String cpf;
 	}
 
 	class DocIdHashGetResponse implements ISwaggerResponse {
