@@ -3,13 +3,11 @@ package br.jus.trf2.tnu.signer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
-import org.json.JSONObject;
-
 import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutRequest;
 import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutResponse;
 import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdSignPut;
 
-import com.crivano.restservlet.RestUtils;
+import com.crivano.swaggerservlet.SwaggerCall;
 import com.crivano.swaggerservlet.SwaggerUtils;
 
 public class DocIdSignPut implements IDocIdSignPut {
@@ -19,20 +17,17 @@ public class DocIdSignPut implements IDocIdSignPut {
 			throws Exception {
 		Id id = new Id(req.id);
 		String detached = SwaggerUtils.base64Encode(req.envelope);
-		String cpf = req.cpf;
 
 		byte[] pdf = DocIdPdfGet.retrievePdf(id);
-		String content = new String(SwaggerUtils.base64Encode(pdf));
-
-		String msg = null;
 
 		// Call bluc-server attach webservice
-		JSONObject blucreq = new JSONObject();
-		blucreq.put("envelope", detached);
-		blucreq.put("content", content);
-		JSONObject blucresp = RestUtils.restPost("bluc-attach", null,
-				Utils.getUrlBluCServer() + "/attach", blucreq);
-		String attached = blucresp.getString("envelope");
+		IBlueCrystal.AttachPostRequest q = new IBlueCrystal.AttachPostRequest();
+		q.envelope = req.envelope;
+		q.content = pdf;
+		IBlueCrystal.AttachPostResponse s = SwaggerCall.call("bluc-attach",
+				null, "POST", Utils.getUrlBluCServer() + "/attach", q,
+				IBlueCrystal.AttachPostResponse.class);
+		String attached = SwaggerUtils.base64Encode(s.envelope);
 
 		// Chama a procedure que faz a gravação da assinatura
 		//

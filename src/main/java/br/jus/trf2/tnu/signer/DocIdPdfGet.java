@@ -9,7 +9,7 @@ import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetRequest;
 import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetResponse;
 import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdPdfGet;
 
-import com.crivano.restservlet.RestUtils;
+import com.crivano.swaggerservlet.SwaggerUtils;
 
 public class DocIdPdfGet implements IDocIdPdfGet {
 
@@ -38,7 +38,7 @@ public class DocIdPdfGet implements IDocIdPdfGet {
 
 			while (rset.next()) {
 				String conteudo = rset.getString("conteudo");
-				byte[] pdf = RestUtils.base64Decode(conteudo);
+				byte[] pdf = SwaggerUtils.base64Decode(conteudo);
 				return pdf;
 			}
 		} finally {

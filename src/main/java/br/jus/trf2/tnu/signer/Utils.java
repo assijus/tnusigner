@@ -5,20 +5,20 @@ import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.sql.DataSource;
 
-import com.crivano.restservlet.RestUtils;
+import com.crivano.swaggerservlet.SwaggerUtils;
+
 
 public class Utils {
 	private static final Map<String, byte[]> cache = new HashMap<String, byte[]>();
 
 	public static String getUrlBluCServer() {
-		return RestUtils.getProperty("blucservice.url",
+		return SwaggerUtils.getProperty("blucservice.url",
 				"http://localhost:8080/blucservice/api/v1");
 	}
 
@@ -37,12 +37,12 @@ public class Utils {
 
 			Class.forName("oracle.jdbc.OracleDriver");
 
-			String dbURL = RestUtils.getProperty("tnusigner.datasource.url",
+			String dbURL = SwaggerUtils.getProperty("tnusigner.datasource.url",
 					null);
-			String username = RestUtils.getProperty(
+			String username = SwaggerUtils.getProperty(
 					"tnusigner.datasource.username", null);
 			;
-			String password = RestUtils.getProperty(
+			String password = SwaggerUtils.getProperty(
 					"tnusigner.datasource.password", null);
 			;
 			connection = DriverManager.getConnection(dbURL, username, password);
