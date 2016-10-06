@@ -3,9 +3,9 @@ package br.jus.trf2.tnu.signer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdHashGetRequest;
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdHashGetResponse;
-import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdHashGet;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdHashGetRequest;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdHashGetResponse;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdHashGet;
 
 public class DocIdHashGet implements IDocIdHashGet {
 	@Override

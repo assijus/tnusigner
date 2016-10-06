@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetRequest;
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdPdfGetResponse;
-import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdPdfGet;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdPdfGetRequest;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdPdfGetResponse;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdPdfGet;
 
 import com.crivano.swaggerservlet.SwaggerUtils;
 

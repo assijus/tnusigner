@@ -3,9 +3,9 @@ package br.jus.trf2.tnu.signer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutRequest;
-import br.jus.trf2.tnu.signer.ITNUSigner.DocIdSignPutResponse;
-import br.jus.trf2.tnu.signer.ITNUSigner.IDocIdSignPut;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutRequest;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutResponse;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdSignPut;
 
 import com.crivano.swaggerservlet.SwaggerCall;
 import com.crivano.swaggerservlet.SwaggerUtils;
