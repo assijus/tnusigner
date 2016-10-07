@@ -7,6 +7,7 @@ import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutRequest;
 import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutResponse;
 import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdSignPut;
 
+import com.crivano.blucservice.api.IBlueCrystal;
 import com.crivano.swaggerservlet.SwaggerCall;
 import com.crivano.swaggerservlet.SwaggerUtils;
 

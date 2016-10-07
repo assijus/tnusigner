@@ -50,16 +50,13 @@ public class DocListGet implements IDocListGet {
 			while (rset.next()) {
 				Document doc = new Document();
 
-				Id id = new Id(cpf, rset.getInt("processoid"),
+				Id id = new Id(rset.getInt("processoid"),
 						rset.getLong("documentoid"));
 				doc.id = id.toString();
 				doc.code = rset.getString("numeroProcesso");
 				doc.descr = rset.getString("descricao");
 				doc.kind = rset.getString("tipoDocumentoDescricao");
 				doc.origin = "TNU";
-				doc.urlHash = "tnu/doc/" + doc.id + "/hash";
-				doc.urlSave = "tnu/doc/" + doc.id + "/sign";
-				doc.urlView = "tnu/doc/" + doc.id + "/pdf";
 				list.add(doc);
 
 				// Acrescenta essa informação na tabela para permitir a

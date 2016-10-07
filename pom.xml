@@ -22,6 +22,11 @@
 			<artifactId>assijus-system-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>com.crivano.blucservice</groupId>
+			<artifactId>blucservice-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.oracle</groupId>
