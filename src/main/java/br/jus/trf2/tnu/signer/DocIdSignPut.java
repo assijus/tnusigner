@@ -19,7 +19,7 @@ public class DocIdSignPut implements IDocIdSignPut {
 		Id id = new Id(req.id);
 		String detached = SwaggerUtils.base64Encode(req.envelope);
 
-		byte[] pdf = DocIdPdfGet.retrievePdf(id);
+		byte[] pdf = DocIdPdfGet.retrievePdf(id).pdf;
 
 		// Call bluc-server attach webservice
 		IBlueCrystal.AttachPostRequest q = new IBlueCrystal.AttachPostRequest();

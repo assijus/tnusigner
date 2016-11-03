@@ -53,6 +53,7 @@ public class DocListGet implements IDocListGet {
 				Id id = new Id(rset.getInt("processoid"),
 						rset.getLong("documentoid"));
 				doc.id = id.toString();
+				doc.secret =  rset.getString("secret");
 				doc.code = rset.getString("numeroProcesso");
 				doc.descr = rset.getString("descricao");
 				doc.kind = rset.getString("tipoDocumentoDescricao");

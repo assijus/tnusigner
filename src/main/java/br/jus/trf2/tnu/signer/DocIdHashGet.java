@@ -13,11 +13,12 @@ public class DocIdHashGet implements IDocIdHashGet {
 			throws Exception {
 		Id id = new Id(req.id);
 
-		byte[] pdf = DocIdPdfGet.retrievePdf(id);
+		PdfData pdfd = DocIdPdfGet.retrievePdf(id);
 
 		// Produce response
-		resp.sha1 = calcSha1(pdf);
-		resp.sha256 = calcSha256(pdf);
+		resp.sha1 = calcSha1(pdfd.pdf);
+		resp.sha256 = calcSha256(pdfd.pdf);
+		resp.secret = pdfd.secret;
 	}
 
 	public static byte[] calcSha1(byte[] content)
