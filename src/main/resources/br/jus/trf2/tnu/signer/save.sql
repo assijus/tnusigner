@@ -1,1 +1,1 @@
-update ProcessoDocumento set detached = ?, attached = ? where processoId = ? and documentoId = ?
+update ProcessoDocumento set detached = ?, attached = ?, assinado = 'S' where processoId = ? and documentoId = ?
