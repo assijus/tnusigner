@@ -4,4 +4,4 @@ pd.descricao, tp.descricao as tipoDocumentoDescricao, pd.sh256 as secret
 from ProcessoDocumento pd left outer join Processo pro on pd.processoid = pro.id 
 left outer join tiposdocumentoprocessual tp on pd.tipodocumentoid = tp.codigo
 left outer join usuario usu on usu.idorgao = pro.idorgao
-where usu.cpf = ? and usu.assinadoc = 'S' and pd.attached is null and pro.situacao = 2
+where usu.cpf = ? and usu.assinadoc = 'S' and pd.attached is null and pro.situacao = 2 and pd.conteudo is not null
