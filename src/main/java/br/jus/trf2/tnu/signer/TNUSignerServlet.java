@@ -23,7 +23,7 @@ public class TNUSignerServlet extends SwaggerServlet {
 
 		super.setAuthorization(SwaggerUtils.getProperty("tnusigner.password", null));
 
-		addDependency(new SwaggerServletDependency("webservice", "blucservice", false) {
+		addDependency(new SwaggerServletDependency("webservice", "blucservice", false, 0, 10000) {
 			@Override
 			public String getUrl() {
 				return Utils.getUrlBluCServer();
@@ -35,7 +35,7 @@ public class TNUSignerServlet extends SwaggerServlet {
 			}
 		});
 
-		addDependency(new TestableDependency("database", "tnuds", false) {
+		addDependency(new TestableDependency("database", "tnuds", false, 0, 10000) {
 			@Override
 			public String getUrl() {
 				return "java:/jboss/datasources/TnuDS";
