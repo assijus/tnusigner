@@ -1,10 +1,12 @@
 package br.jus.trf2.tnu.signer;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.crivano.swaggerservlet.SwaggerServlet;
 import com.crivano.swaggerservlet.SwaggerUtils;
 
 import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdPdfGetRequest;
@@ -18,8 +20,8 @@ public class DocIdPdfGet implements IDocIdPdfGet {
 		Id id = new Id(req.id);
 
 		br.jus.trf2.tnu.signer.PdfData pdfd = retrievePdf(id);
-		resp.doc = pdfd.pdf;
-		resp.secret = pdfd.secret;
+		resp.inputstream = new ByteArrayInputStream(pdfd.pdf);
+		SwaggerServlet.getHttpServletResponse().addHeader("Doc-Secret", pdfd.secret);
 	}
 
 	protected static PdfData retrievePdf(Id id) throws Exception, SQLException {
