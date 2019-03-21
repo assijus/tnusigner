@@ -4,7 +4,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import com.crivano.swaggerservlet.SwaggerServlet;
-import com.crivano.swaggerservlet.SwaggerUtils;
 import com.crivano.swaggerservlet.dependency.SwaggerServletDependency;
 import com.crivano.swaggerservlet.dependency.TestableDependency;
 
@@ -14,14 +13,19 @@ public class TNUSignerServlet extends SwaggerServlet {
 	private static final long serialVersionUID = -1611417120964698257L;
 
 	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
+	public void initialize(ServletConfig config) throws ServletException {
+		setAPI(IAssijusSystem.class);
+		setActionPackage("br.jus.trf2.tnu.signer");
 
-		super.setAPI(IAssijusSystem.class);
+		addRestrictedProperty("datasource.name", "java:/jboss/datasources/TnuDS");
+		addRestrictedProperty("datasource.url", null);
+		addRestrictedProperty("datasource.username", null);
+		addPrivateProperty("datasource.password", null);
 
-		super.setActionPackage("br.jus.trf2.tnu.signer");
+		addRestrictedProperty("blucservice.url", "http://localhost:8080/blucservice/api/v1");
 
-		super.setAuthorization(SwaggerUtils.getProperty("tnusigner.password", null));
+		addPrivateProperty("password", null);
+		super.setAuthorization(getProperty("password"));
 
 		addDependency(new SwaggerServletDependency("webservice", "blucservice", false, 0, 10000) {
 			@Override
@@ -38,7 +42,7 @@ public class TNUSignerServlet extends SwaggerServlet {
 		addDependency(new TestableDependency("database", "tnuds", false, 0, 10000) {
 			@Override
 			public String getUrl() {
-				return "java:/jboss/datasources/TnuDS";
+				return getProperty("datasource.name");
 			}
 
 			@Override
