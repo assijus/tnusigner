@@ -12,8 +12,15 @@ import br.jus.trf2.assijus.system.api.IAssijusSystem;
 public class TNUSignerServlet extends SwaggerServlet {
 	private static final long serialVersionUID = -1611417120964698257L;
 
+	public static TNUSignerServlet INSTANCE = null;
+
+	public static String getProp(String name) {
+		return INSTANCE.getProperty(name);
+	}
+
 	@Override
 	public void initialize(ServletConfig config) throws ServletException {
+		this.INSTANCE = this;
 		setAPI(IAssijusSystem.class);
 		setActionPackage("br.jus.trf2.tnu.signer");
 
@@ -32,25 +39,20 @@ public class TNUSignerServlet extends SwaggerServlet {
 			public String getUrl() {
 				return Utils.getUrlBluCServer();
 			}
-
-			@Override
-			public String getResponsable() {
-				return null;
-			}
 		});
 
-		addDependency(new TestableDependency("database", "tnuds", false, 0, 10000) {
-			@Override
-			public String getUrl() {
-				return getProperty("datasource.name");
-			}
-
-			@Override
-			public boolean test() throws Exception {
-				Utils.getConnection().close();
-				return true;
-			}
-		});
+//		addDependency(new TestableDependency("database", "tnuds", false, 0, 10000) {
+//			@Override
+//			public String getUrl() {
+//				return getProperty("datasource.name");
+//			}
+//
+//			@Override
+//			public boolean test() throws Exception {
+//				Utils.getConnection().close();
+//				return true;
+//			}
+//		});
 
 	}
 }

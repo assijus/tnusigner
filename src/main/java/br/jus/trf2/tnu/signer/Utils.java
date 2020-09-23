@@ -17,14 +17,14 @@ public class Utils {
 	private static final Map<String, byte[]> cache = new HashMap<String, byte[]>();
 
 	public static String getUrlBluCServer() {
-		return SwaggerServlet.getProperty("blucservice.url");
+		return TNUSignerServlet.getProp("blucservice.url");
 	}
 
 	public static Connection getConnection() throws Exception {
 		try {
 			Context initContext = new InitialContext();
 			Context envContext = (Context) initContext.lookup("java:");
-			DataSource ds = (DataSource) envContext.lookup(SwaggerServlet.getProperty("datasource.name"));
+			DataSource ds = (DataSource) envContext.lookup(TNUSignerServlet.getProp("datasource.name"));
 			Connection connection = ds.getConnection();
 			if (connection == null)
 				throw new Exception("Can't open connection to Oracle.");
@@ -34,9 +34,9 @@ public class Utils {
 
 			Class.forName("oracle.jdbc.OracleDriver");
 
-			String dbURL = SwaggerServlet.getProperty("datasource.url");
-			String username = SwaggerServlet.getProperty("datasource.username");
-			String password = SwaggerServlet.getProperty("datasource.password");
+			String dbURL = TNUSignerServlet.getProp("datasource.url");
+			String username = TNUSignerServlet.getProp("datasource.username");
+			String password = TNUSignerServlet.getProp("datasource.password");
 			connection = DriverManager.getConnection(dbURL, username, password);
 			if (connection == null)
 				throw new Exception("Can't open connection.");
