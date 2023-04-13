@@ -3,31 +3,28 @@ package br.jus.trf2.tnu.signer;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 
-import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutRequest;
-import br.jus.trf2.assijus.system.api.IAssijusSystem.DocIdSignPutResponse;
-import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdSignPut;
-
 import com.crivano.blucservice.api.IBlueCrystal;
 import com.crivano.swaggerservlet.SwaggerCall;
 import com.crivano.swaggerservlet.SwaggerUtils;
 
+import br.jus.trf2.assijus.system.api.AssijusSystemContext;
+import br.jus.trf2.assijus.system.api.IAssijusSystem.IDocIdSignPut;
+
 public class DocIdSignPut implements IDocIdSignPut {
 
 	@Override
-	public void run(DocIdSignPutRequest req, DocIdSignPutResponse resp)
-			throws Exception {
+	public void run(Request req, Response resp, AssijusSystemContext ctx) throws Exception {
 		Id id = new Id(req.id);
 		String detached = SwaggerUtils.base64Encode(req.envelope);
 
 		byte[] pdf = DocIdPdfGet.retrievePdf(id).pdf;
 
 		// Call bluc-server attach webservice
-		IBlueCrystal.AttachPostRequest q = new IBlueCrystal.AttachPostRequest();
+		IBlueCrystal.IAttachPost.Request q = new IBlueCrystal.IAttachPost.Request();
 		q.envelope = req.envelope;
 		q.content = pdf;
-		IBlueCrystal.AttachPostResponse s = SwaggerCall.call("bluc-attach",
-				null, "POST", Utils.getUrlBluCServer() + "/attach", q,
-				IBlueCrystal.AttachPostResponse.class);
+		IBlueCrystal.IAttachPost.Response s = SwaggerCall.call("bluc-attach", null, "POST",
+				Utils.getUrlBluCServer() + "/attach", q, IBlueCrystal.IAttachPost.Response.class);
 		String attached = SwaggerUtils.base64Encode(s.envelope);
 
 		// Chama a procedure que faz a gravação da assinatura

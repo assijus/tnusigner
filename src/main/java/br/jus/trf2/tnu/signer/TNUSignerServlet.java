@@ -5,7 +5,6 @@ import javax.servlet.ServletException;
 
 import com.crivano.swaggerservlet.SwaggerServlet;
 import com.crivano.swaggerservlet.dependency.SwaggerServletDependency;
-import com.crivano.swaggerservlet.dependency.TestableDependency;
 
 import br.jus.trf2.assijus.system.api.IAssijusSystem;
 
@@ -23,6 +22,7 @@ public class TNUSignerServlet extends SwaggerServlet {
 		this.INSTANCE = this;
 		setAPI(IAssijusSystem.class);
 		setActionPackage("br.jus.trf2.tnu.signer");
+		setApiContextClass(AssijusSystemContext.class);
 
 		addRestrictedProperty("datasource.name", "java:/jboss/datasources/TnuDS");
 		addRestrictedProperty("datasource.url", null);
